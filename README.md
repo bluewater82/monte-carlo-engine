@@ -42,15 +42,18 @@ This project demonstrates how randomness, when sampled repeatedly, converges int
 ### 🔬 Statistical Insight
 
 * Demonstrates **Law of Large Numbers**
-
 * Shows that Monte Carlo error follows:
 
-  1/sqrt(n)
+  1/√n
 
 * Compares:
-
   * Theoretical convergence behavior
-  * Actual simulation results
+  * Empirical convergence from a single run
+  * Distribution of independent estimates
+
+* Highlights the difference between:
+  * Path-wise convergence (running estimate)
+  * Statistical variability (independent sampling)
 
 ---
 
@@ -59,16 +62,19 @@ This project demonstrates how randomness, when sampled repeatedly, converges int
 * User-defined number of trials
 * Automatically generated checkpoints (default: 100)
 * High-resolution convergence tracking
+* Adjustable number of independent sampes per checkpoint
 
 ---
 
 ### 📈 Real-Time Feedback
 
-* Terminal-based progress indicator:
+* Terminal-based progress indicators for multiple simulation phases:
 
   ```
-  Simulation progress... 43.2%
+  Generating convergence data... 100.0%
+  Generating independent estimates... 78.6%
   ```
+* Keeps user informed of current tasks being executed
 * Efficient update frequency to avoid performance degradation
 
 ---
@@ -107,6 +113,19 @@ monte-carlo-engine/
 │
 └── README.md
 ```
+
+---
+
+### 🎯 Independent Sampling Overlay (new feature)
+
+* Generates multiple independent Monte Carlo estimates at each checkpoint
+* Visualized as a semi-transparent scatter overlay on the convergence plot
+* Reveals the distribution and variance of estimates at each sample size
+* Demonstrates how uncertainty shrinks as: 1/√n
+
+* Provides visual contrast between:
+  * Single-run convergence (cumulative estimate)
+  * Multi-run variability (independent estimates)
 
 ---
 
@@ -151,15 +170,37 @@ User will be prompted for number of desired trials to run.
 
 ### Terminal
 
-Currently a work in progress, simply prompts user for desired number of trials and then displays the progress indicator while the simulation runs.
+- Prompts user for desired number of trials to run
+- Displays realtime progress indicators while simulation runs
+- Displays a report of statistics once simulation finishes
+
+![terminal output](/reports/terminal_output.png)
 
 ### Visualization
 
-* Top plot: curved convergence toward π
-* Bottom plot: linear trend on log-log scale showing ( n^{-1/2} ) behavior vs empirical slope (fit line)
+Two complementary reports are displayed:
 
-![Example output](/reports/Figure_1.png)
+Table Report:
 
+![table report](/reports/statistics1.png)
+
+  * Displays summary statistics (final estimate, error, variance, etc.)
+  * Styled in a dark theme for readability and consistency
+
+Plot Report:
+
+![multiple-feature plot](/reports/plot1.png)
+
+- Convergence plot (top):
+  * Running estimate (cumulative simulation)
+  * Absolute error vs trials
+  * Independent estimate scatter overlay (semi-transparent)
+  * Reference line for true π
+
+- Log-log plot (bottom):
+  * Error vs trials (log scale)
+  * Theoretical slope: 1/√n
+  * Empirical slope from simulation data
 ---
 
 ## 🔧 Design Philosophy
